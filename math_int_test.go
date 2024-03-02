@@ -139,3 +139,43 @@ func Fuzz_Clamp_Int(f *testing.F) {
 		emath.Clamp(a, min, max)
 	})
 }
+
+func Test_Abs_Int(t *testing.T) {
+	tests := []struct {
+		n    int
+		want int
+	}{
+		{
+			n:    1,
+			want: 1,
+		}, {
+			n:    -1,
+			want: 1,
+		}, {
+			n:    0,
+			want: 0,
+		}, {
+			n:    100,
+			want: 100,
+		}, {
+			n:    -100,
+			want: 100,
+		}, {
+			n:    int(0),
+			want: 0,
+		},
+	}
+
+	for _, tc := range tests {
+		got := emath.Abs(tc.n)
+		if tc.want != got {
+			t.Fatalf("expected: %v, got: %v", tc.want, got)
+		}
+	}
+}
+
+func Fuzz_Abs_Int(f *testing.F) {
+	f.Fuzz(func(t *testing.T, a int) {
+		emath.Abs(a)
+	})
+}

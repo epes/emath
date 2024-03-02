@@ -1,3 +1,3 @@
 module github.com/epes/emath
 
-go 1.18
+go 1.22.0

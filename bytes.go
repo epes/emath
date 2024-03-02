@@ -1,6 +1,9 @@
 package emath
 
-import "encoding/binary"
+import (
+	"encoding/binary"
+	"math"
+)
 
 func IsNilBytes(b []byte) bool {
 	for _, v := range b {
@@ -26,4 +29,11 @@ func BytesToUint32(b []byte) uint32 {
 
 func BytesToInt32(b []byte) int32 {
 	return int32(BytesToUint32(b))
+}
+
+func BytesToVector2(b []byte) Vector2 {
+	return Vector2{
+		X: math.Float64frombits(binary.BigEndian.Uint64(b[:8])),
+		Y: math.Float64frombits(binary.BigEndian.Uint64(b[8:])),
+	}
 }
